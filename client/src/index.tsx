@@ -22,6 +22,8 @@ reportWebVitals();
 Pages
 - Welcome.tsx
 ----- Welcome to Make a Cake, Create Account, Log In, Log In as Guest
+- UserHome.tsx
+----- User will have the option to make a cake, view orders
 - CreateCake.tsx
 ----- 
       Number of Tiers (n >= 1 && n <= 5)

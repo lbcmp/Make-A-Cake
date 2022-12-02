@@ -2,7 +2,7 @@
 const ViewOrders = () => {
     return (
       <div>
-        ViewOrders
+        View Orders
       </div>
     )
   }
