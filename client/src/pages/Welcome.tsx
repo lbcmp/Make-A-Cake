@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import Cake from "../assets/cake.png";
-import InputText from "../components/input-text";
+import InputText from "../components/InputText";
 
 const Welcome = () => {
 
