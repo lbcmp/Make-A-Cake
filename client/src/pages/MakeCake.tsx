@@ -1,6 +1,6 @@
-import InputText from "../components/InputText";
 import { useState, useEffect } from "react";
 import InputCheckboxField from "../components/InputCheckboxField";
+import React from "react";
 
 const batterFlavors: Record<string, string> = {
   "vanilla":"Vanilla",
@@ -73,17 +73,45 @@ const MakeCake = () => {
   }
 
   const addTier = (duplicateLastTier: boolean) => {
-    setCake(cake.concat(duplicateLastTier ? cake[cake.length - 1] : tier))
+    setCake([duplicateLastTier ? cake[0] : tier, ...cake])
+    // setCake(cake.concat(duplicateLastTier ? cake[cake.length - 1] : tier))
     setTier(defaultTier)
     setCurrTierNumber(currTierNumber + 1)
     const form: HTMLFormElement = document.getElementById("make-cake-form") as HTMLFormElement;
     form.reset();
   }
 
+  const removeTier = (index: number) => {
+    const newCake = [...cake];
+    newCake.splice(index, 1);
+    setCake(newCake)
+    setCurrTierNumber(currTierNumber - 1)
+  }
+
   const leftSide = (
     <div id="left-side">
-        Left Side
-      <div id="cake-table"></div>
+      <h1>Cake Tiers</h1>
+      {
+        cake.length > 0 &&
+        <button id="make-cake-button">Make My Cake</button>
+      }
+      {
+        cake.length > 0 &&
+        cake.map((tier, index) => (
+          <div key={index} className="cake-table" style={{width: `calc(75% + ${index * 25}px)`}}>
+            <div className="title-div">
+              <h2>Tier {cake.length - index}</h2>
+              <button onClick={() => removeTier(index)}>Remove</button>
+            </div>
+            <div><b>Batter Flavor: </b>{batterFlavors[tier.batterFlavor]}</div>
+            <div><b>Inner Frosting: </b>{tier.innerFrostings.join(", ")}</div>
+            <div><b>Outer Frosting: </b>{tier.outerFrostings.join(", ")}</div>
+            <div><b>Decorations: </b>{tier.decorations.join(", ")}</div>
+            <div><b>Image File: </b>{(tier.image && tier.image.name) || "N/A" }</div>
+            <div><b>Notes: </b>{tier.notes || "N/A"}</div>
+          </div>
+        ))
+      }
     </div>
   )
 
@@ -145,10 +173,12 @@ const MakeCake = () => {
 
           <h2>Notes:</h2>
           <p>Please include any special instructions for this tier</p>
-          <textarea id="notes" name="notes" value={tier.notes} onChange={(e) => inputChangeHandler(e)} />
+          <textarea id="notes" name="notes" value={tier.notes || ""} onChange={(e) => inputChangeHandler(e)} />
 
-          <button type="button" onClick={() => addTier(false)}>Add Tier</button>
-          <button type="submit">Finish Cake</button>
+          <button type="submit" onClick={(e) => {
+            e.preventDefault();
+            addTier(false)
+          }}>Add Tier</button>
         </form>
     </div>
   )
@@ -156,7 +186,15 @@ const MakeCake = () => {
   return (
     <div id="make-cake">
       { leftSide }
-      { rightSide }
+      { 
+        cake.length < 5 ? 
+        rightSide :
+        <div id="max-tiers">
+          <h1>You have reached the maximum number of tiers</h1>
+          <p>Please remove a tier or click <b>Make My Cake</b> to confirm your order</p>
+          <button>Make My Cake</button>
+        </div>
+      }
     </div>
   )
 }
