@@ -163,6 +163,11 @@ $purple: rgb(207, 175, 212);
         h1 {
             font-size: 1.5rem;
             align-self: center;
+
+            a, a:visited {
+                text-decoration: none;
+                color: black;
+            }
         }
     
         img {
@@ -609,4 +614,72 @@ $purple: rgb(207, 175, 212);
         }
     }
 } //end of #place-order
+
+#view-orders {
+    width: 100%;
+    min-height: calc(100vh - 75px);
+    background-color: $beige;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    #no-orders {
+        margin-top: 20px;
+    }
+
+    .order-card {
+        width: 100%;
+        background-color: white;
+        border: 3px solid $purple;
+        border-right: none;
+        border-radius: 5px;
+        margin: 10px;
+        display: flex;
+
+        .order-info {
+            border-right: 3px solid $purple;
+            padding: 10px;
+
+            h2 {
+                font-size: 1rem;
+                margin: 10px 0 2.5px 0;
+            }
+
+            ul {
+                list-style-position: inside;
+            }
+        }
+
+        .shipping {
+            width: 30%;
+            border-right: 3px solid $purple;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+
+            h2 {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            div {
+                display: flex;
+                margin-bottom: 5px;
+
+                b {
+                    margin-right: 7.5px;
+                }
+            }
+        }
+
+        &:nth-of-type(1) {
+            margin-top: 20px;
+        }
+    }
+} // end of #view-orders
 

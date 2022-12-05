@@ -204,6 +204,7 @@ export interface TierType {
   decorations: Array<string>;
   image?: File;
   notes?: string;
+  tierOrder?: string;
 }
 /*
       Number of Tiers (n >= 1 && n <= 5)

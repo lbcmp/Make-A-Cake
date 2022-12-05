@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
             unique: true,
             primaryKey: true
         },
+        price: {
+            type: INTEGER
+        }
     }, {
         tableName: "cake",
         underscored: true

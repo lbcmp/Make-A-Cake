@@ -6,7 +6,7 @@ const UpperBar = () => {
         <>
             <div id="upper-bar">
                 <div>
-                    <h1>Make a Cake</h1>
+                    <h1><Link to="/user">Make a Cake</Link></h1>
                     <img alt="Cake" src={Cake}></img>
                 </div>
                 <Link to="/">Log Out</Link>

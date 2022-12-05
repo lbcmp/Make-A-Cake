@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
             unique: true,
             primaryKey: true
         },
+        tier_order: {
+            type: INTEGER
+        },
         batter_flavor: {
             type: STRING(50)
         },

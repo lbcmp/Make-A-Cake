@@ -37,11 +37,13 @@ const orders = [
 const cakes = [
     {
         cake_id: 1,
-        order_id: 1
+        order_id: 1,
+        price: 40
     },
     {
         cake_id: 2,
-        order_id: 2
+        order_id: 2,
+        price: 64
     }
 ]
 
@@ -49,6 +51,7 @@ const tiers = [
     {
         tier_id: 1,
         cake_id: 1,
+        tier_order: 1,
         batter_flavor: "Vanilla",
         inner_frosting_1: "Salted Caramel",
         inner_frosting_2: "Bourbon Vanilla Bean Buttercream",
@@ -65,6 +68,7 @@ const tiers = [
     {
         tier_id: 2,
         cake_id: 2,
+        tier_order: 1,
         batter_flavor: "Strawberry",
         inner_frosting_1: "Strawberry",
         inner_frosting_2: "",
@@ -81,6 +85,7 @@ const tiers = [
     {
         tier_id: 3,
         cake_id: 2,
+        tier_order: 2,
         batter_flavor: "Confetti",
         inner_frosting_1: "American Buttercream",
         inner_frosting_2: "",
