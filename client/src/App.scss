@@ -245,6 +245,23 @@ $purple: rgb(207, 175, 212);
     width: 100%;
     display: flex;
 
+    .make-cake-link {
+        width: 40%;
+        padding: 15px;
+        border: 5px solid $purple;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        margin: 20px 0 50px 0;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        background-color: white;
+    }
+
+    .make-cake-link:hover {
+        background-color: $purple;
+    }
+
     #left-side, #right-side {
         width: 50%;
         min-height: calc(100vh - 75px);
@@ -290,19 +307,6 @@ $purple: rgb(207, 175, 212);
                     color: black;
                 }
             }
-        }
-
-        #make-cake-button {
-            width: 40%;
-            padding: 15px;
-            border: 5px solid $purple;
-            font-size: 0.9rem;
-            border-radius: 5px;
-            margin: 10px 0 50px 0;
-        }
-
-        #make-cake-button:hover {
-            background-color: $purple;
         }
     }
 
@@ -381,19 +385,228 @@ $purple: rgb(207, 175, 212);
             font-size: 1.75rem;
             margin-bottom: 20px;
         }
+    }
+} // end of #make-cake
 
-        button {
-            width: 40%;
-            padding: 15px;
-            border: 5px solid $purple;
-            font-size: 0.9rem;
-            margin-top: 20px;
-            border-radius: 5px;
+#place-order {
+    width: 100%;
+    min-height: calc(100vh - 75px);
+    background-color: $beige;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+    h1 {
+        font-size: 1.25rem;
+        padding: 10px;
+        text-align: center;
+    }
+
+    #place-order-button {
+        width: 250px;
+        height: 40px;
+        padding: 30px;
+        border: 3px solid $purple;
+        border-radius: 5px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.25rem;
+        margin: 20px auto;
+    }
+
+    #place-order-button:hover {
+        background-color: $purple;
+    }
+
+    #subtotal {
+        width: calc(50% - 40px);
+        margin-right: 10px;
+        margin-bottom: 20px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+
+        .row {
+            width: 100%;
+            border-top: 1px solid grey;
+            display: flex;
+            
+            .col1, .col2 {
+                padding: 5px;
+            }
+
+            .col1 {
+                width: 25%;
+                border-right: 1px solid gray;
+            }
+
+            .col2 {
+                width: 75%;
+                display: grid;
+                grid-template-columns: 3.25fr 0.75fr;
+                column-gap: 15px;
+
+                b, p {
+                    border-bottom: 1px solid black;
+                }
+
+                p {
+                    text-align: right;
+                }
+
+                .total {
+                    margin-top: 10px;
+                    font-weight: 600;
+                    border-bottom: none;
+                }
+            }
+
+            &:nth-last-child(2) {
+                b, p {
+                    font-weight: 600;
+                    border-bottom: none;
+                }
+            }
+
+            &:nth-last-child(1) {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+
+                b, p {
+                    font-weight: 600;
+                    border-bottom: none;
+                    padding: 10px 0;
+                }
+            }
+        }
+    } // end of #subtotal
+
+    #shipping {
+        width: calc(50% - 40px);
+        margin-right: 10px;
+        margin-bottom: 20px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 20px;
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            #edit {
+                background-color: transparent;
+                border: none;
+                color: gray;
+                text-decoration: underline;
+                text-align: left;
+                margin-bottom: 10px;
+            }
+
+            #submit {
+                width: 50%;
+                background-color: $beige;
+                border: 3px solid $pink;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            #submit:hover {
+                background-color: $pink;
+            }
+
+            input[type=text] {
+                width: 100%;
+            }
         }
 
-        button:hover {
-            background-color: $purple;
+        label {
+            padding: 5px;
+
+            p {
+                margin-left: 17.5px;
+                color: gray;
+                font-size: 0.8rem;
+            }
+
+            input {
+                margin-right: 5px;
+            }
+        }
+
+        #bottom {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+
+            div {
+                display: flex;
+            }
+
+            b {
+                margin-right: 5px;
+            }
+        }
+    } //end of #shipping
+
+    #payment {
+        width: calc(50% - 40px);
+        margin-right: 10px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 20px;
+        padding-top: 0;
+    
+        form {
+            display: flex;
+            flex-direction: column;
+    
+            input {
+                height: 40px;
+                font-size: 1rem;
+                border: 1px solid $teal;
+                border-radius: 2.5px;
+                padding: 5px;
+                margin-bottom: 7.5px;
+            }
+            
+            input[type=text] {
+                width: 100%;
+            }
+    
+            input[type=date] {
+                width: 150px;
+            }
+    
+            input[type=number] {
+                width: 75px;
+                margin-left: 10px;
+            }
+        }
+    } //end of #payment
+    
+    #contact {
+        width: calc(50% - 40px);
+        margin-right: 10px;
+        background-color: white;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 20px;
+        padding-top: 0;
+    
+        input {
+            width: calc(50% - 10px);
+            margin: 5px;
         }
     }
-}
+} //end of #place-order
 

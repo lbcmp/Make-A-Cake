@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import InputCheckboxField from "../components/InputCheckboxField";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const batterFlavors: Record<string, string> = {
   "vanilla":"Vanilla",
@@ -44,12 +45,7 @@ const MakeCake = () => {
   };
   const [tier, setTier] = useState<TierType>(defaultTier);
 
-  useEffect(() => {
-    console.log(cake)
-  }, [cake])
-
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    console.log(e.target.name)
     setTier({
       ...tier,
       ...(e.target.name === "batter-flavor") && { batterFlavor: e.target.value },
@@ -93,7 +89,7 @@ const MakeCake = () => {
       <h1>Cake Tiers</h1>
       {
         cake.length > 0 &&
-        <button id="make-cake-button">Make My Cake</button>
+        <Link className="make-cake-link" to="/user/place-order" state={cake}>Make My Cake</Link>
       }
       {
         cake.length > 0 &&
@@ -192,7 +188,7 @@ const MakeCake = () => {
         <div id="max-tiers">
           <h1>You have reached the maximum number of tiers</h1>
           <p>Please remove a tier or click <b>Make My Cake</b> to confirm your order</p>
-          <button>Make My Cake</button>
+        <Link className="make-cake-link" to="/user/place-order" state={cake}>Make My Cake</Link>
         </div>
       }
     </div>

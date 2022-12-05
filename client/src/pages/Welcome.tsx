@@ -7,6 +7,8 @@ const Welcome = () => {
 
   const [currSelection, setCurrSelection] = useState("");
 
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => console.log(e)
+
   const leftSide = (
     <section className="left-side">
       <h1>Welcome to Make a Cake!</h1>
@@ -23,11 +25,11 @@ const Welcome = () => {
         {leftSide}
         <section className="right-side welcome-form">
           <h1>Create Account</h1>
-          <InputText placeholder="First Name" />
-          <InputText placeholder="Last Name" />
-          <InputText placeholder="Email" />
-          <InputText placeholder="Password" />
-          <InputText placeholder="Confirm Password" />
+          <InputText placeholder="First Name" changeHandler={changeHandler}/>
+          <InputText placeholder="Last Name" changeHandler={changeHandler}/>
+          <InputText placeholder="Email" changeHandler={changeHandler}/>
+          <InputText placeholder="Password" changeHandler={changeHandler}/>
+          <InputText placeholder="Confirm Password" changeHandler={changeHandler}/>
           <Link to="/user">Create Account</Link>
           {/* eslint-disable-next-line */}
           <a href="" onClick={() => setCurrSelection("")}>Go Back</a>
@@ -40,8 +42,8 @@ const Welcome = () => {
         {leftSide}
         <section className="right-side welcome-form">
           <h1>Log In</h1>
-          <InputText placeholder="Email" />
-          <InputText placeholder="Password" />
+          <InputText placeholder="Email" changeHandler={changeHandler} />
+          <InputText placeholder="Password" changeHandler={changeHandler} />
           <Link to="/user">Log In</Link>
           {/* eslint-disable-next-line */}
           <a href="" onClick={() => setCurrSelection("")}>Go Back</a>
