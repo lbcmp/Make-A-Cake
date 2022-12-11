@@ -99,7 +99,7 @@ const MakeCake = () => {
               <h2>Tier {cake.length - index}</h2>
               <button onClick={() => removeTier(index)}>Remove</button>
             </div>
-            <div><b>Batter Flavor: </b>{batterFlavors[tier.batterFlavor]}</div>
+            <div><b>Batter Flavor: </b>{tier.batterFlavor}</div>
             <div><b>Inner Frosting: </b>{tier.innerFrostings.join(", ")}</div>
             <div><b>Outer Frosting: </b>{tier.outerFrostings.join(", ")}</div>
             <div><b>Decorations: </b>{tier.decorations.join(", ")}</div>
@@ -133,7 +133,7 @@ const MakeCake = () => {
             <option value="" disabled>Select a Flavor</option>
             {
               Object.keys(batterFlavors).map((flavorId, index) => (
-                  <option key={index} value={flavorId}>{batterFlavors[flavorId]}</option>
+                  <option key={index} value={batterFlavors[flavorId]}>{batterFlavors[flavorId]}</option>
               ))
             }
           </select>

@@ -22,7 +22,6 @@ router.get("/orders/:customer_id", (req, res) => {
         }
     })
     .then((orders) => {
-        // console.log(orders)
 
         const cleanedOrders = orders.map(order => {
             const orderInfo = order.dataValues;
@@ -72,6 +71,53 @@ router.get("/orders/:customer_id", (req, res) => {
     .catch((e) => {
         console.log(e)
         res.json(e)
+    })
+});
+
+router.post("/orders/:customer_id", (req, res) => {
+    // console.log(req.body)
+    // res.json(req.body)
+
+    Order.create({
+        ship_company: "Fedex",
+        ship_number: "9213684034033451",
+        ship_speed: req.body.shippingSelection,
+        status: "Processing",
+        customer_id: "12345678"
+    })
+    .then((order) => {
+        // console.log("Success!", order.dataValues.order_id)
+        const orderId = order.dataValues.order_id;
+        
+        Cake.create({
+            order_id: orderId,
+            price: req.body.price
+        })
+        .then((cake) => {
+            // console.log("Success!", cake.dataValues.cake_id)
+
+            let tiers = []
+
+            for (let i = 0; i < req.body.cake.length; ++i) {
+                let tier = req.body.cake[i];
+                tier.cake_id = cake.dataValues.cake_id;
+
+                tiers.push(tier)
+            }
+
+            Tier.bulkCreate(tiers)
+            .then(tiers => {
+                console.log(tiers)
+                res.json({orderId: orderId})
+            })
+            .catch(e => res.json("Error!"))
+        })
+        .catch(e => {
+            res.json("Error!")
+        })
+    })
+    .catch(e => {
+        res.json("Error!")
     })
 })
 

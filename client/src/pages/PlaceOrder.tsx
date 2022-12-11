@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InputText from "../components/InputText";
 import { TierType } from "./MakeCake";
 
 const PlaceOrder = () => {
 
+  const navigate = useNavigate();
   const location = useLocation();
   const cake: Array<TierType> = location.state.reverse();
-  // console.log(cake)
+  console.log(cake)
 
   const flatTierRate = 15; // Flat rate per tier
   const perAdditionalTierRate = 5; // Per additional tier, add this amount to flat rate
@@ -85,6 +86,59 @@ const PlaceOrder = () => {
 
   const contactChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e)
+  }
+
+  const placeOrder = () => {
+
+    let modifiedCake = []
+    
+    for (let i = 0; i < cake.length; ++i) {
+      let tier: any = {...cake[i]}
+      tier = {
+        tier_order: i + 1,
+        batter_flavor: tier.batterFlavor,
+        ...(tier.innerFrostings.length >= 1) && { inner_frosting_1 : tier.innerFrostings[0] },
+        ...(tier.innerFrostings.length >= 2) && { inner_frosting_2 : tier.innerFrostings[1] },
+        ...(tier.innerFrostings.length >= 3) && { inner_frosting_3 : tier.innerFrostings[2] },
+        ...(tier.outerFrostings.length >= 1) && { outer_frosting_1 : tier.outerFrostings[0] },
+        ...(tier.outerFrostings.length >= 2) && { outer_frosting_2 : tier.outerFrostings[1] },
+        ...(tier.outerFrostings.length >= 3) && { outer_frosting_3 : tier.outerFrostings[2] },
+        ...(tier.decorations.length >= 1) && { decoration_1 : tier.decorations[0] },
+        ...(tier.decorations.length >= 2) && { decoration_2 : tier.decorations[1] },
+        ...(tier.decorations.length >= 3) && { decoration_3 : tier.decorations[2] },
+        ...(tier.image && tier.image.name) && { image: tier.image.name },
+        ...(tier.notes) && { notes: tier.notes }
+      }
+      delete tier.innerFrostings;
+      delete tier.outerFrostings;
+      delete tier.decorations;
+
+      modifiedCake.push(tier)
+    }
+
+    fetch("http://localhost:8080/api/orders/12345678", {
+      method: "POST",
+      headers: { "Content-Type":"application/json" },
+      body: JSON.stringify({
+        cake: modifiedCake,
+        price: totalPriceWithShipping === 0 ? totalPrice : totalPriceWithShipping,
+        shippingSelection: shippingSelection
+      })
+    })
+    .then(res => {
+      if(res.ok) {
+          return res.json()
+      }
+
+      throw new Error("Content validation")
+    })
+    .then(data => {
+      navigate("/user/order-confirmation", { state: data.orderId })
+    })
+    .catch(e => {
+        console.log(e)
+        console.log("Error")
+    })
   }
 
   const subtotalPanel = (
@@ -245,7 +299,7 @@ const PlaceOrder = () => {
       { shippingPanel }
       { paymentPanel }
       { contactPanel }
-      <button id="place-order-button">Place Order</button>
+      <button id="place-order-button" onClick={() => placeOrder()}>Place Order</button>
     </div>
   )
 

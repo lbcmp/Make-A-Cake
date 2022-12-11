@@ -17,7 +17,7 @@ app.use(cors());
 const synchronizeTables = async() => {
     await db.sequelize.sync({ force: false })
     .then(() => {
-        console.log("Dropped and re-synced db.");
+        console.log("Refreshed db");
     })
     .catch((err) => {
         console.log("Failed to sync db: " + err.message);
